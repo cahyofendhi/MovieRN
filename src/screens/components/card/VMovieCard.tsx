@@ -2,7 +2,7 @@ import React from 'react';
 import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {genreList} from '../../../helper/app.helper';
-import {getPosterPath, MovieData} from '../../../model/moviemodel';
+import {getPosterPath, MovieData} from '../../../model/movie.model';
 import {Label} from '../label';
 const {width} = Dimensions.get('window');
 

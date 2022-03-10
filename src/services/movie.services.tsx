@@ -1,4 +1,4 @@
-import {CategoryMovie, GroupMovie, MovieResponse} from '../model/moviemodel';
+import {CategoryMovie, GroupMovie, MovieResponse} from '../model/movie.model';
 import {client, getUrl} from './api.service';
 
 async function getMovieList(

@@ -2,7 +2,7 @@ import React from 'react';
 import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import {dateFormat} from '../../../helper/format.helper';
-import {getPosterPath, MovieData} from '../../../model/moviemodel';
+import {getPosterPath, MovieData} from '../../../model/movie.model';
 const {width} = Dimensions.get('window');
 
 interface HMovieProps {

@@ -17,7 +17,7 @@ import {
   updateTopMovie,
   updateUpcomingMovie,
 } from '../../redux';
-import {MovieData} from '../../model/moviemodel';
+import {MovieData} from '../../model/movie.model';
 
 type HomeScreenProp = CompositeNavigationProp<
   StackNavigationProp<RootStackParamList, 'Main'>,

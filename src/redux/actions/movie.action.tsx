@@ -1,5 +1,5 @@
 import {ActionCreator} from 'redux';
-import {MovieData} from '../../model/moviemodel';
+import {MovieData} from '../../model/movie.model';
 import {movieService} from '../../services';
 import {
   FetchActionTypes,

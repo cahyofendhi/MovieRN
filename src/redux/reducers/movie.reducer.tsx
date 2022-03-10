@@ -1,4 +1,4 @@
-import {MovieData} from '../../model/moviemodel';
+import {MovieData} from '../../model/movie.model';
 import {
   MovieActionType,
   UPDATE_POPULAR_MOVIES,

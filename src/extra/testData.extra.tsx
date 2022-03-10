@@ -1,4 +1,4 @@
-import {MovieData, MovieResponse} from '../model/moviemodel';
+import {MovieData, MovieResponse} from '../model/movie.model';
 
 const movies: MovieData[] = [
   {
