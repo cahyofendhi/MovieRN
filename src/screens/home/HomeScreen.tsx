@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -17,7 +18,7 @@ import {
   updateTopMovie,
   updateUpcomingMovie,
 } from '../../redux';
-import {MovieData} from '../../model/moviemodel';
+import {MovieData} from '../../model/movie.model';
 
 type HomeScreenProp = CompositeNavigationProp<
   StackNavigationProp<RootStackParamList, 'Main'>,
@@ -29,7 +30,7 @@ const HomeScreen: React.FC = () => {
 
   const dispatch = useDispatch();
   const {upcomingMovie, popularMovie, topMovie} = useSelector(
-    (state: RootState) => state.homeMovie,
+      (state: RootState) => state.homeMovie,
   );
 
   function refreshMovies() {

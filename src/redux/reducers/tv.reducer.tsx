@@ -1,4 +1,4 @@
-import {MovieData} from '../../model/moviemodel';
+import {MovieData} from '../../model/movie.model';
 import {
   TvActionType,
   UPDATE_LATEST_TV,

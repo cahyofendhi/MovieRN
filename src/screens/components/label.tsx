@@ -2,20 +2,20 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
 interface LabelProps {
-  title: string;
+  average: number;
 }
 
-export const Label: React.FC<LabelProps> = ({title}) => {
+export const Label: React.FC<LabelProps> = ({average}) => {
+  const color = average > 8.3 ? '#7baf04' : average > 7 ? '#f1c232' : '#f44336';
   return (
-    <View style={styles.label}>
-      <Text style={styles.titleLabel}>{title}</Text>
+    <View style={[styles.label, {backgroundColor: color}]}>
+      <Text style={styles.titleLabel}>{average+''}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   label: {
-    backgroundColor: '#7baf04',
     padding: 5,
     alignSelf: 'baseline',
     borderRadius: 5,

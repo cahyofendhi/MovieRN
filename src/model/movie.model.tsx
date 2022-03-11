@@ -1,3 +1,5 @@
+/* eslint-disable require-jsdoc */
+/* eslint-disable camelcase */
 import {baseImage} from '../helper/app.helper';
 export type CategoryMovie =
   | 'upcoming'
@@ -23,10 +25,29 @@ export interface MovieData {
   vote_count: number;
   first_air_date?: string;
   original_name?: string;
+  budget: number;
+  genres: Genre[];
+  homepage: string;
+  imdb_id: string;
+  revenue: number;
+  runtime: number;
+  status: string;
+  tagline: string;
 }
 
 export function getPosterPath(path: string): string {
   return baseImage + path;
+}
+
+export function getGenreTitle(genres: Genre[]): string[] {
+  if (genres != null && genres.length > 0) {
+    const titles: string[] = genres.map((val) => {
+      return val.name;
+    });
+    return titles;
+  } else {
+    return [];
+  }
 }
 
 export interface MovieResponse {
@@ -34,4 +55,9 @@ export interface MovieResponse {
   results: MovieData[];
   total_pages: number;
   total_results: number;
+}
+
+export interface Genre {
+  id: number;
+  name: string;
 }

@@ -1,4 +1,4 @@
-import {MovieData} from '../../model/moviemodel';
+import {MovieData} from '../../model/movie.model';
 
 export const UPDATE_LATEST_TV = 'UPDATE_LATEST_TV';
 export const UPDATE_POPULAR_TV = 'UPDATE_POPULAR_TV';

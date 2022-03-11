@@ -1,7 +1,7 @@
 import React from 'react';
 import {Dimensions, Image, StyleSheet, View} from 'react-native';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
-import {getPosterPath, MovieData} from '../../model/moviemodel';
+import {getPosterPath, MovieData} from '../../model/movie.model';
 const {width} = Dimensions.get('window');
 
 interface UpcomingProps {

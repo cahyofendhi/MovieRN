@@ -1,5 +1,6 @@
+/* eslint-disable require-jsdoc */
 import {ActionCreator} from 'redux';
-import {MovieData} from '../../model/moviemodel';
+import {MovieData} from '../../model/movie.model';
 import {movieService} from '../../services';
 import {
   FetchActionTypes,
@@ -15,19 +16,19 @@ import {
 } from './common.action';
 
 const updateUpcomingMovieSuccess: ActionCreator<MovieActionType> = (
-  movies: MovieData[],
+    movies: MovieData[],
 ) => {
   return {type: UPDATE_UPCOMING_MOVIES, payload: movies};
 };
 
 const updatePopularMovieSuccess: ActionCreator<MovieActionType> = (
-  movies: MovieData[],
+    movies: MovieData[],
 ) => {
   return {type: UPDATE_POPULAR_MOVIES, payload: movies};
 };
 
 const updateTopMovieSuccess: ActionCreator<MovieActionType> = (
-  movies: MovieData[],
+    movies: MovieData[],
 ) => {
   return {type: UPDATE_TOP_MOVIES, payload: movies};
 };
@@ -36,13 +37,13 @@ export function updateUpcomingMovie() {
   return (dispatch: (arg0: MovieActionType | FetchActionTypes) => void) => {
     dispatch(upcomingMovieRequest());
     return movieService
-      .getMovieList('movie', 'upcoming')
-      .then(response => {
-        dispatch(updateUpcomingMovieSuccess(response.results));
-      })
-      .catch((reason: any) => {
-        console.log('errorrr ' + {reason});
-      });
+        .getMovieList('movie', 'upcoming')
+        .then((response) => {
+          dispatch(updateUpcomingMovieSuccess(response.results));
+        })
+        .catch((reason: any) => {
+          console.log('errorrr ' + {reason});
+        });
   };
 }
 
@@ -50,13 +51,13 @@ export function updatePopularMovie() {
   return (dispatch: (arg0: MovieActionType | FetchActionTypes) => void) => {
     dispatch(popularMovieRequest());
     return movieService
-      .getMovieList('movie', 'popular')
-      .then(response => {
-        dispatch(updatePopularMovieSuccess(response.results));
-      })
-      .catch((reason: any) => {
-        console.log('errorrr ' + {reason});
-      });
+        .getMovieList('movie', 'popular')
+        .then((response) => {
+          dispatch(updatePopularMovieSuccess(response.results));
+        })
+        .catch((reason: any) => {
+          console.log('errorrr ' + {reason});
+        });
   };
 }
 
@@ -64,12 +65,12 @@ export function updateTopMovie() {
   return (dispatch: (arg0: MovieActionType | FetchActionTypes) => void) => {
     dispatch(topMovieRequest());
     return movieService
-      .getMovieList('movie', 'top_rated')
-      .then(response => {
-        dispatch(updateTopMovieSuccess(response.results));
-      })
-      .catch((reason: any) => {
-        console.log('errorrr ' + {reason});
-      });
+        .getMovieList('movie', 'top_rated')
+        .then((response) => {
+          dispatch(updateTopMovieSuccess(response.results));
+        })
+        .catch((reason: any) => {
+          console.log('errorrr ' + {reason});
+        });
   };
 }

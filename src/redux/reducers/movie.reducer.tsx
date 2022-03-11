@@ -1,4 +1,5 @@
-import {MovieData} from '../../model/moviemodel';
+/* eslint-disable require-jsdoc */
+import {MovieData} from '../../model/movie.model';
 import {
   MovieActionType,
   UPDATE_POPULAR_MOVIES,
@@ -19,8 +20,8 @@ const initialState: HomeMovieState = {
 };
 
 export function homeMovieReducer(
-  state: HomeMovieState = initialState,
-  action: MovieActionType,
+    state: HomeMovieState = initialState,
+    action: MovieActionType,
 ): HomeMovieState {
   switch (action.type) {
     case UPDATE_UPCOMING_MOVIES: {
