@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -26,7 +27,7 @@ const TVScreen: React.FC = () => {
 
   const dispatch = useDispatch();
   const {latestMovie, popularMovie, topMovie} = useSelector(
-    (state: RootState) => state.tvMovie,
+      (state: RootState) => state.tvMovie,
   );
 
   function refreshMovies() {
@@ -43,9 +44,9 @@ const TVScreen: React.FC = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
         <HeaderHome title="TV" onSearch={() => {}} />
-        <HMovieList title={'On Air TV'} movies={latestMovie} />
-        <HMovieList title={'Top TV'} movies={topMovie} />
-        <HMovieList title={'Popular'} movies={popularMovie} />
+        <HMovieList title={'On Air TV'} movies={latestMovie} onPress={() => {}} />
+        <HMovieList title={'Top TV'} movies={topMovie} onPress={() => {}} />
+        <HMovieList title={'Popular'} movies={popularMovie} onPress={() => {}}/>
       </ScrollView>
     </SafeAreaView>
   );

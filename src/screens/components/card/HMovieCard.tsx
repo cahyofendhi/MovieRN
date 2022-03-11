@@ -1,9 +1,10 @@
 import React from 'react';
-import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import {dateFormat} from '../../../helper/format.helper';
 import {getPosterPath, MovieData} from '../../../model/movie.model';
-const {width} = Dimensions.get('window');
+import {width} from '../../../styles/dimension.style';
+import {AppImage} from '../AppImage';
 
 interface HMovieProps {
   title: string;
@@ -46,25 +47,24 @@ interface HMovieItemProps {
 const HMovieItem: React.FC<HMovieItemProps> = ({movie}) => {
   return (
     <View style={styles.contentItem}>
-      <Image
-        resizeMode={'cover'}
+      <AppImage
         style={styles.imageItem}
-        source={{uri: getPosterPath(movie.backdrop_path)}}
+        url={getPosterPath(movie.backdrop_path)}
       />
       <Text numberOfLines={2} ellipsizeMode="tail" style={styles.titleItem}>
-        {movie.title != null
-          ? movie.title
-          : movie.original_name != null
-          ? movie.original_name
-          : '-'}
+        {movie.title != null ?
+          movie.title :
+          movie.original_name != null ?
+          movie.original_name :
+          '-'}
       </Text>
       <Text style={styles.titleDescription}>
         {dateFormat(
-          movie.release_date != null
-            ? movie.release_date
-            : movie.first_air_date != null
-            ? movie.first_air_date
-            : '-',
+          movie.release_date != null ?
+            movie.release_date :
+            movie.first_air_date != null ?
+            movie.first_air_date :
+            '-',
         )}
       </Text>
     </View>
