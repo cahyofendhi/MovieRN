@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {width} from '../../styles/dimension.style';
+import {isTablet, width} from '../../styles/dimension.style';
 
 
 const iconSize = {
@@ -48,7 +48,7 @@ interface IconBaseProps {
 const IconBase: React.FC<IconBaseProps & IconProps> = ({
   name = '',
   color = '#2b2b2b',
-  size = 'md',
+  size = isTablet() ? 'xxs' : 'md',
   onPress,
   disabled = false,
 }) => {
