@@ -5,8 +5,9 @@ import React, {useEffect, useState} from 'react';
 import {Animated, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Extrapolate} from 'react-native-reanimated';
 import {useDispatch, useSelector} from 'react-redux';
+import {formatNumber} from '../../helper/format.helper';
 import {getGenreTitle, getPosterPath, MovieData} from '../../model/movie.model';
-import {RootState, updateCrewMovie, updateMovie, updateSimiliarMovie} from '../../redux';
+import {RootState, updateCrewTV, updateSimiliarTV, updateTV} from '../../redux';
 import {StatusBarManager, width} from '../../styles/dimension.style';
 import {AppImage} from '../components/AppImage';
 import {FlexContainer} from '../components/container/FlexContainer';
@@ -15,7 +16,6 @@ import {Label} from '../components/label';
 import NavBarBack from '../components/navbarBack';
 import {RootStackParamList} from '../RootStackPrams';
 import {CreditPeople} from './components/CreditPeople';
-import {InformationMovie} from './components/InformationMovie';
 import {SimiliarMovie} from './components/SimiliarMovie';
 
 const HEADER_EXPANDED_HEIGHT = 300;
@@ -23,20 +23,20 @@ const HEADER_COLLAPSED_HEIGHT = 60;
 const navBarHeight = 48 + StatusBarManager.HEIGHT;
 const paddingTopNavBar = StatusBarManager.HEIGHT - 10;
 
-type detailMovieScreenProps = StackNavigationProp<RootStackParamList, 'DetailMovie'>;
+type detailTVScreenProps = StackNavigationProp<RootStackParamList, 'DetailTV'>;
 
-const DetailMovieScreen: React.FC = () => {
-  const navigation = useNavigation<detailMovieScreenProps>();
-  const route = useRoute<RouteProp<RootStackParamList, 'DetailMovie'>>();
+const DetailTVScreen: React.FC = () => {
+  const navigation = useNavigation<detailTVScreenProps>();
+  const route = useRoute<RouteProp<RootStackParamList, 'DetailTV'>>();
   const params = route.params;
   const dispatch = useDispatch();
-  const {movie, crews, similiarMovie, isCrewRequest, isSimiliarRequest} = useSelector((state: RootState) => state.detailMovie);
-  const title = movie?.original_title != null ? movie.original_title : '-';
+  const {movie, crews, similiarMovie, isCrewRequest, isSimiliarRequest} = useSelector((state: RootState) => state.detailTV);
+  const title = movie?.name != null ? movie.name : '-';
 
   useEffect(() => {
-    dispatch(updateMovie(params.movie));
-    dispatch(updateCrewMovie(params.movie.id));
-    dispatch(updateSimiliarMovie(params.movie.id));
+    dispatch(updateTV(params.movie));
+    dispatch(updateCrewTV(params.movie.id));
+    dispatch(updateSimiliarTV(params.movie.id));
   }, []);
 
   const [scrollY] = useState(new Animated.Value(0));
@@ -57,7 +57,7 @@ const DetailMovieScreen: React.FC = () => {
   });
 
   function onPress(item: MovieData) {
-    navigation.push('DetailMovie', {movie: item});
+    navigation.push('DetailTV', {movie: item});
   }
 
   return (
@@ -94,22 +94,39 @@ const DetailMovieScreen: React.FC = () => {
             {useNativeDriver: false})
         }
         scrollEventThrottle={16}>
-        <View style={styles.contentContainer}>
-          <View style={{paddingLeft: 16, paddingRight: 16, paddingBottom: 16}}>
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>{title}</Text>
-              <View style={{alignSelf: 'center'}}>
+        <View style={{flex: 1}}>
+          <View style={styles.contentMiddle}>
+            <View style={styles.middleContentGroup}>
+              <Text style={styles.titleMiddleContent}>
+                {
+                 (movie.last_episode_to_air != null) ?
+                  movie.last_episode_to_air.episode_number : '0'
+                }
+              </Text>
+              <Text style={styles.descriptionMiddleContent}>Episode</Text>
+            </View>
+            <View style={styles.middleContentGroup}>
+              <Text style={styles.titleMiddleContent}>{formatNumber(movie.popularity)}</Text>
+              <Text style={styles.descriptionMiddleContent}>Popularity</Text>
+            </View>
+            <View style={styles.middleContentGroup}>
+              <View style={{justifyContent: 'center'}}>
                 <Label average={movie.vote_average}/>
               </View>
+              <Text style={styles.descriptionMiddleContent}>Average</Text>
             </View>
-            <FlexContainer items={getGenreTitle(movie.genres)}/>
-            <Text style={styles.titleDescription}>
-              {movie.overview.length ? movie.overview : '-'}
-            </Text>
           </View>
-          <CreditPeople isRequest={isCrewRequest} crews={crews}/>
-          <InformationMovie movie={movie}/>
-          <SimiliarMovie isRequest={isSimiliarRequest} movies={similiarMovie} onPress={onPress}/>
+          <View style={styles.contentContainer}>
+            <View style={{paddingHorizontal: 16, paddingBottom: 16}}>
+              <Text style={styles.title}>{title}</Text>
+              <FlexContainer items={getGenreTitle(movie.genres)}/>
+              <Text style={styles.titleDescription}>
+                {movie.overview.length ? movie.overview : '-'}
+              </Text>
+            </View>
+            <CreditPeople isRequest={isCrewRequest} crews={crews}/>
+            <SimiliarMovie isRequest={isSimiliarRequest} movies={similiarMovie} onPress={onPress}/>
+          </View>
         </View>
       </ScrollView>
     </View> :
@@ -136,10 +153,10 @@ const styles = StyleSheet.create({
     zIndex: 9999,
   },
   headerImage: {
-    borderBottomLeftRadius: 10,
+    borderBottomLeftRadius: 30,
     borderBottomRightRadius: 10,
     width: width,
-    height: width,
+    height: width - 30,
     position: 'absolute',
   },
   title: {
@@ -148,12 +165,43 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
   },
+  contentMiddle: {
+    flex: 1,
+    height: 100,
+    marginLeft: 50,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  middleContentGroup: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    flex: 0.33,
+  },
+  titleMiddleContent: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: 'black',
+  },
+  descriptionMiddleContent: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#5b5b5b',
+    paddingTop: 8,
+  },
   contentContainer: {
     flex: 1,
     height: '100%',
     backgroundColor: 'white',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+    marginTop: 20,
     paddingBottom: 100,
   },
   navbarCollapse: {
@@ -173,12 +221,6 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
   },
-  titleContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
   titleDescription: {
     color: '#5b5b5b',
     fontWeight: '400',
@@ -186,4 +228,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailMovieScreen;
+export default DetailTVScreen;

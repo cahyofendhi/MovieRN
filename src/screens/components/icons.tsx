@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-const {width} = Dimensions.get('window');
+import {width} from '../../styles/dimension.style';
+
 
 const iconSize = {
   xxs: width / 28,
@@ -20,23 +21,23 @@ interface IconProps {
   badgeCount?: number;
 }
 
-export const IconSearch: React.FC<IconProps> = props => {
+export const IconSearch: React.FC<IconProps> = (props) => {
   return <IconBase name="md-search" {...props} />;
 };
 
-export const IconBack: React.FC<IconProps> = props => {
-  return <IconBase name="arrowleft" {...props} />;
+export const IconBack: React.FC<IconProps> = (props) => {
+  return <IconBase name="arrow-back-outline" {...props} />;
 };
 
-export const IconLike: React.FC<IconProps> = props => {
+export const IconLike: React.FC<IconProps> = (props) => {
   return <IconBase name="hearto" {...props} />;
 };
 
-export const IconLiked: React.FC<IconProps> = props => {
+export const IconLiked: React.FC<IconProps> = (props) => {
   return <IconBase name="heart" color="#bd081c" {...props} />;
 };
 
-export const IconClose: React.FC<IconProps> = props => {
+export const IconClose: React.FC<IconProps> = (props) => {
   return <IconBase name="close" {...props} />;
 };
 

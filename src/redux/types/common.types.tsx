@@ -37,3 +37,8 @@ export type FetchActionTypes =
   | FetchLatestTvAction
   | FetchPopularTvAction
   | FetchTopTvAction;
+
+export type FetchActionTVTypes =
+  | FetchLatestTvAction
+  | FetchPopularTvAction
+  | FetchTopTvAction;

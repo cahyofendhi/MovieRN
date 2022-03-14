@@ -1,30 +1,38 @@
 import React from 'react';
-import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {genreList} from '../../../helper/app.helper';
-import {getPosterPath, MovieData} from '../../../model/moviemodel';
+import {getPosterPath, MovieData} from '../../../model/movie.model';
+import {width} from '../../../styles/dimension.style';
+import {AppImage} from '../AppImage';
 import {Label} from '../label';
-const {width} = Dimensions.get('window');
+import {VMovieListShimmer} from '../shimmer/VMovieCardShimmer';
 
 interface VMovieProps {
   title: string;
   movies: MovieData[];
+  isRequest: boolean;
   onPress: (movie: MovieData) => void;
 }
 
 export const VMovieList: React.FC<VMovieProps> = ({
   title = 'title',
   movies = [],
+  isRequest = true,
   onPress,
 }) => {
-  let renderItems: Element[] = [];
-  for (let dt of movies) {
+  const renderItems: Element[] = [];
+  for (const dt of movies) {
     renderItems.push(<VMovieItem key={dt.id} movie={dt} onPress={onPress} />);
   }
   return (
     <View>
       <Text style={styles.title}>{title}</Text>
-      <View style={styles.contentList}>{renderItems}</View>
+      {
+        isRequest ?
+        <VMovieListShimmer /> :
+        <View style={styles.contentList}>{renderItems}</View>
+      }
     </View>
   );
 };
@@ -37,16 +45,15 @@ interface VMovieItemProps {
 const VMovieItem: React.FC<VMovieItemProps> = ({movie, onPress}) => {
   return (
     <TouchableOpacity onPress={() => onPress(movie)} style={styles.contentItem}>
-      <Image
+      <AppImage
         style={styles.imageItem}
-        resizeMode={'cover'}
-        source={{uri: getPosterPath(movie.backdrop_path)}}
+        url={getPosterPath(movie.backdrop_path)}
       />
       <View style={styles.titleGroup}>
         <Text style={styles.titleItem} numberOfLines={2} ellipsizeMode="tail">
-          {movie.original_title}
+          {movie.title}
         </Text>
-        <Label title={'8'} />
+        <Label average={movie.vote_average} />
         <Text style={styles.genre} numberOfLines={2} ellipsizeMode="tail">
           {genreList(movie.genre_ids)}
         </Text>

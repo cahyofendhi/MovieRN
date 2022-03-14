@@ -1,40 +1,48 @@
 import React from 'react';
-import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import {dateFormat} from '../../../helper/format.helper';
-import {getPosterPath, MovieData} from '../../../model/moviemodel';
-const {width} = Dimensions.get('window');
+import {getPosterPath, MovieData} from '../../../model/movie.model';
+import {width} from '../../../styles/dimension.style';
+import {AppImage} from '../AppImage';
+import {HMovieListShimmer} from '../shimmer/HMovieCardShimmer';
 
 interface HMovieProps {
   title: string;
   movies: MovieData[];
+  isRequest: boolean,
   onPress: (movie: MovieData) => void;
 }
 
 export const HMovieList: React.FC<HMovieProps> = ({
   title = 'Title',
   movies = [],
+  isRequest = false,
   onPress,
 }) => {
   return (
     <View>
       <Text style={styles.title}>{title}</Text>
-      <FlatList
-        contentContainerStyle={styles.contentList}
-        data={movies}
-        renderItem={({item}) => (
-          <TouchableOpacity onPress={() => onPress(item)}>
-            <HMovieItem movie={item} />
-          </TouchableOpacity>
-        )}
-        horizontal
-        initialScrollIndex={0}
-        snapToAlignment={'start'}
-        decelerationRate={'fast'}
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      {
+        isRequest ?
+        <HMovieListShimmer /> :
+        <FlatList
+          contentContainerStyle={styles.contentList}
+          data={movies}
+          renderItem={({item}) => (
+            <TouchableOpacity onPress={() => onPress(item)}>
+              <HMovieItem movie={item} />
+            </TouchableOpacity>
+          )}
+          horizontal
+          initialScrollIndex={0}
+          snapToAlignment={'start'}
+          decelerationRate={'fast'}
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      }
     </View>
   );
 };
@@ -46,25 +54,24 @@ interface HMovieItemProps {
 const HMovieItem: React.FC<HMovieItemProps> = ({movie}) => {
   return (
     <View style={styles.contentItem}>
-      <Image
-        resizeMode={'cover'}
+      <AppImage
         style={styles.imageItem}
-        source={{uri: getPosterPath(movie.backdrop_path)}}
+        url={getPosterPath(movie.backdrop_path)}
       />
       <Text numberOfLines={2} ellipsizeMode="tail" style={styles.titleItem}>
-        {movie.title != null
-          ? movie.title
-          : movie.original_name != null
-          ? movie.original_name
-          : '-'}
+        {movie.title != null ?
+          movie.title :
+          movie.original_name != null ?
+          movie.original_name :
+          '-'}
       </Text>
       <Text style={styles.titleDescription}>
         {dateFormat(
-          movie.release_date != null
-            ? movie.release_date
-            : movie.first_air_date != null
-            ? movie.first_air_date
-            : '-',
+          movie.release_date != null ?
+            movie.release_date :
+            movie.first_air_date != null ?
+            movie.first_air_date :
+            '-',
         )}
       </Text>
     </View>

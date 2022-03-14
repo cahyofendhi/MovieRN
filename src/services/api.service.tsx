@@ -1,13 +1,13 @@
 import Axios, {AxiosInstance} from 'axios';
-import  { apiKey, baseUrl } from '../config/env.config';
+import {apiKey, baseUrl} from '../config/env.config';
 
-const lang = 'language=id';
+const lang = 'language=en';
 
 export const client: AxiosInstance = Axios.create({
   baseURL: baseUrl,
   timeout: 10000,
 });
-client.interceptors.request.use(request => {
+client.interceptors.request.use((request) => {
   console.log('Starting Request', JSON.stringify(request, null, 2));
   return request;
 });
