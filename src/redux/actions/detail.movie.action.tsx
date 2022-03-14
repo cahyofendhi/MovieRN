@@ -65,7 +65,7 @@ export function updateCrewMovie(id: number) {
   };
 }
 
-export function updateSimiliatMovie(id: number) {
+export function updateSimiliarMovie(id: number) {
   return (dispatch: (arg0: DetailMovieActionType) => void) => {
     dispatch(similiarMovieRequest());
     return movieService

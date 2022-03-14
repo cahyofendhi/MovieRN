@@ -2,14 +2,14 @@
 import {Crew} from '../../model/crews.model';
 import {MovieData} from '../../model/movie.model';
 import {
-  DetailMovieActionType,
-  FETCH_CREWS_MOVIES,
-  FETCH_SIMILIAR_MOVIES,
-  UPDATE_CREW_MOVIES,
-  UPDATE_MOVIE,
-  UPDATE_SIMILIAR_MOVIES} from '../types';
+  DetailTVActionType,
+  FETCH_CREWS_TV_MOVIES,
+  FETCH_SIMILIAR_TV_MOVIES,
+  UPDATE_CREW_TV_MOVIES,
+  UPDATE_SIMILIAR_TV_MOVIES,
+  UPDATE_TV_MOVIE} from '../types';
 
-interface DetailMovieState {
+interface DetailTVState {
   movie: MovieData | null;
   crews: Crew[];
   similiarMovie: MovieData[];
@@ -17,7 +17,7 @@ interface DetailMovieState {
   isSimiliarRequest: boolean,
 }
 
-const initialState: DetailMovieState = {
+const initialState: DetailTVState = {
   movie: null,
   crews: [],
   similiarMovie: [],
@@ -25,38 +25,38 @@ const initialState: DetailMovieState = {
   isSimiliarRequest: true,
 };
 
-export function detailMovieReducer(
-    state: DetailMovieState = initialState,
-    action: DetailMovieActionType,
-): DetailMovieState {
+export function detailTVReducer(
+    state: DetailTVState = initialState,
+    action: DetailTVActionType,
+): DetailTVState {
   switch (action.type) {
-    case UPDATE_MOVIE: {
+    case UPDATE_TV_MOVIE: {
       return {
         ...state,
         movie: action.payload,
       };
     }
-    case UPDATE_CREW_MOVIES: {
+    case UPDATE_CREW_TV_MOVIES: {
       return {
         ...state,
         crews: action.payload,
         isCrewRequest: false,
       };
     }
-    case UPDATE_SIMILIAR_MOVIES: {
+    case UPDATE_SIMILIAR_TV_MOVIES: {
       return {
         ...state,
         similiarMovie: action.payload,
         isSimiliarRequest: false,
       };
     }
-    case FETCH_CREWS_MOVIES: {
+    case FETCH_CREWS_TV_MOVIES: {
       return {
         ...state,
         isCrewRequest: true,
       };
     }
-    case FETCH_SIMILIAR_MOVIES: {
+    case FETCH_SIMILIAR_TV_MOVIES: {
       return {
         ...state,
         isSimiliarRequest: true,

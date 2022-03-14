@@ -5,37 +5,44 @@ import {dateFormat} from '../../../helper/format.helper';
 import {getPosterPath, MovieData} from '../../../model/movie.model';
 import {width} from '../../../styles/dimension.style';
 import {AppImage} from '../AppImage';
+import {HMovieListShimmer} from '../shimmer/HMovieCardShimmer';
 
 interface HMovieProps {
   title: string;
   movies: MovieData[];
+  isRequest: boolean,
   onPress: (movie: MovieData) => void;
 }
 
 export const HMovieList: React.FC<HMovieProps> = ({
   title = 'Title',
   movies = [],
+  isRequest = false,
   onPress,
 }) => {
   return (
     <View>
       <Text style={styles.title}>{title}</Text>
-      <FlatList
-        contentContainerStyle={styles.contentList}
-        data={movies}
-        renderItem={({item}) => (
-          <TouchableOpacity onPress={() => onPress(item)}>
-            <HMovieItem movie={item} />
-          </TouchableOpacity>
-        )}
-        horizontal
-        initialScrollIndex={0}
-        snapToAlignment={'start'}
-        decelerationRate={'fast'}
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      {
+        isRequest ?
+        <HMovieListShimmer /> :
+        <FlatList
+          contentContainerStyle={styles.contentList}
+          data={movies}
+          renderItem={({item}) => (
+            <TouchableOpacity onPress={() => onPress(item)}>
+              <HMovieItem movie={item} />
+            </TouchableOpacity>
+          )}
+          horizontal
+          initialScrollIndex={0}
+          snapToAlignment={'start'}
+          decelerationRate={'fast'}
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      }
     </View>
   );
 };

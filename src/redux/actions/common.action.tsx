@@ -1,5 +1,6 @@
 import {ActionCreator} from 'redux';
 import {
+  FetchActionTVTypes,
   FetchActionTypes,
   FETCH_LATEST_TV,
   FETCH_POPULAR_MOVIES,
@@ -19,12 +20,12 @@ export const topMovieRequest: ActionCreator<FetchActionTypes> = () => {
   return {type: FETCH_TOP_MOVIES};
 };
 
-export const latestTvRequest: ActionCreator<FetchActionTypes> = () => {
+export const latestTvRequest: ActionCreator<FetchActionTVTypes> = () => {
   return {type: FETCH_LATEST_TV};
 };
-export const popularTvRequest: ActionCreator<FetchActionTypes> = () => {
+export const popularTvRequest: ActionCreator<FetchActionTVTypes> = () => {
   return {type: FETCH_POPULAR_TV};
 };
-export const topTvRequest: ActionCreator<FetchActionTypes> = () => {
+export const topTvRequest: ActionCreator<FetchActionTVTypes> = () => {
   return {type: FETCH_TOP_TV};
 };

@@ -29,7 +29,8 @@ const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenProp>();
 
   const dispatch = useDispatch();
-  const {upcomingMovie, popularMovie, topMovie} = useSelector(
+  const {upcomingMovie, popularMovie, topMovie,
+    isUpcomingRequest, isPopularRequest, isTopRequest} = useSelector(
       (state: RootState) => state.homeMovie,
   );
 
@@ -51,9 +52,9 @@ const HomeScreen: React.FC = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
         <HeaderHome title="Movie" onSearch={() => {}} />
-        <UpcomingFeed onPress={onPress} movies={upcomingMovie} />
-        <HMovieList title={'Popular'} movies={popularMovie} onPress={onPress} />
-        <VMovieList title={'Top Movies'} movies={topMovie} onPress={onPress} />
+        <UpcomingFeed isRequest={isUpcomingRequest} onPress={onPress} movies={upcomingMovie} />
+        <HMovieList isRequest={isPopularRequest} title={'Popular'} movies={popularMovie} onPress={onPress} />
+        <VMovieList isRequest={isTopRequest} title={'Top Movies'} movies={topMovie} onPress={onPress} />
       </ScrollView>
     </SafeAreaView>
   );

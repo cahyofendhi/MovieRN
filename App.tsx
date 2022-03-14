@@ -7,6 +7,7 @@ import {RootStackParamList} from './src/screens/RootStackPrams';
 import {Provider} from 'react-redux';
 import {store} from './src/redux';
 import DetailMovieScreen from './src/screens/detail/DetailMovieScreen';
+import DetailTVScreen from './src/screens/detail/DetailTVScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -29,6 +30,11 @@ const App = () => {
             options={{headerShown: false}}
             name="DetailMovie"
             component={DetailMovieScreen}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="DetailTV"
+            component={DetailTVScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>

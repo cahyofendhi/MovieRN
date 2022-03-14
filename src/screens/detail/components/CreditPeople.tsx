@@ -1,32 +1,39 @@
 import React from 'react';
 import {View, Text, FlatList, StyleSheet} from 'react-native';
-import {Crew} from '../../model/crews.model';
-import {getPosterPath} from '../../model/movie.model';
-import {width} from '../../styles/dimension.style';
-import {AppImage} from '../components/AppImage';
+import {Crew} from '../../../model/crews.model';
+import {getPosterPath} from '../../../model/movie.model';
+import {width} from '../../../styles/dimension.style';
+import {AppImage} from '../../components/AppImage';
+import {CreditPeopleShimmer} from '../../components/shimmer/CreditShimmer';
 
 interface CreditPeopleProps {
   crews: Crew[];
+  isRequest: boolean
 }
 
-export const CreditPeople: React.FC<CreditPeopleProps> = ({crews}) => {
+export const CreditPeople: React.FC<CreditPeopleProps> = ({crews, isRequest = false}) => {
   return (
     <View>
       <Text style={styles.title}>Credit People</Text>
-      <FlatList
-        contentContainerStyle={styles.contentList}
-        data={crews}
-        renderItem={({item}) => (
-          <PeopleItem crew={item}/>
-        )}
-        horizontal
-        initialScrollIndex={0}
-        snapToAlignment={'start'}
-        decelerationRate={'fast'}
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      {
+        isRequest ?
+        CreditPeopleShimmer :
+        <FlatList
+          contentContainerStyle={styles.contentList}
+          data={crews}
+          renderItem={({item}) => (
+            <PeopleItem crew={item}/>
+          )}
+          horizontal
+          initialScrollIndex={0}
+          snapToAlignment={'start'}
+          decelerationRate={'fast'}
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      }
+
     </View>
   );
 };

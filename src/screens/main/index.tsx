@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../home/HomeScreen';
