@@ -1,10 +1,7 @@
 import React from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
-import {width} from '../../../styles/dimension.style';
-import LinearGradient from 'react-native-linear-gradient';
-import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder';
-
-export const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
+import {isTablet, width} from '../../../styles/dimension.style';
+import {ShimmerPlaceHolder} from './ViewShimmer';
 
 export const CreditPeopleShimmer: React.FC = () => {
   const crews = [1, 2, 3, 4, 5, 6, 7];
@@ -26,7 +23,7 @@ export const CreditPeopleShimmer: React.FC = () => {
   );
 };
 
-const widthItem = width / 5;
+const widthItem = width / (isTablet() ? 9 : 5);
 
 const PeopleItemShimmer: React.FC = () => {
   return (

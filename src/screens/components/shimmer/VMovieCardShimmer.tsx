@@ -1,11 +1,9 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {width} from '../../../styles/dimension.style';
-import LinearGradient from 'react-native-linear-gradient';
-import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder';
+import {isTablet, width} from '../../../styles/dimension.style';
+import {ShimmerPlaceHolder} from './ViewShimmer';
 
-export const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
-
+const imageWidth = width / (isTablet() ? 7: 4);
 
 export const VMovieListShimmer: React.FC = () => {
   const renderItems: Element[] = [];
@@ -44,7 +42,7 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
   },
   imageItem: {
-    width: width / 4,
+    width: imageWidth,
     aspectRatio: 3 / 4,
     borderRadius: 10,
   },

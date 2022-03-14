@@ -2,9 +2,11 @@ import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import {getPosterPath, MovieData} from '../../model/movie.model';
+import {isTablet} from '../../styles/dimension.style';
 import {AppImage} from '../components/AppImage';
 import {UpcomingShimmer} from '../components/shimmer/UpcomingCardShimmer';
 const {width} = Dimensions.get('window');
+const imageWidth = Math.round(width / (isTablet() ? 7 :4));
 
 interface UpcomingProps {
   movies: MovieData[];
@@ -45,11 +47,10 @@ interface UpcomingItemProps {
 }
 
 const UpcomingItem: React.FC<UpcomingItemProps> = ({movie}) => {
-  const imageWidth = Math.round(width / 4);
   return (
     <View style={styles.containerItem}>
       <AppImage
-        style={[{width: imageWidth}, styles.item]}
+        style={styles.item}
         url={getPosterPath(movie.backdrop_path)}
       />
     </View>
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
   },
   item: {
     height: 75,
+    width: imageWidth,
     borderRadius: 10,
   },
 });

@@ -1,11 +1,10 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import {width} from '../../../styles/dimension.style';
-import LinearGradient from 'react-native-linear-gradient';
-import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder';
+import {isTablet, width} from '../../../styles/dimension.style';
+import {ShimmerPlaceHolder} from './ViewShimmer';
 
-export const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
+const contentWidth = width / (isTablet() ? 6 : 3);
 
 export const HMovieListShimmer: React.FC = () => {
   const movies = [0, 1, 2, 3, 4, 5, 6, 7];
@@ -47,17 +46,17 @@ const styles = StyleSheet.create({
   contentItem: {
     flex: 1,
     marginRight: 10,
-    width: width / 3,
+    width: contentWidth,
   },
   title: {
     borderRadius: 10,
-    width: width / 3 - 10,
+    width: contentWidth - 10,
     marginTop: 8,
     alignSelf: 'center',
   },
   imageItem: {
     width: width / 3,
-    height: (width / 3 - 10) * 4 / 3,
+    height: (contentWidth - 10) * 4 / 3,
     borderRadius: 10,
     backgroundColor: '#eeeeee',
   },
