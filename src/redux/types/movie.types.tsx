@@ -1,4 +1,5 @@
 import {MovieData} from '../../model/movie.model';
+import {FetchActionTypes} from './common.types';
 
 export const UPDATE_UPCOMING_MOVIES = 'UPDATE_UPCOMING_MOVIES';
 export const UPDATE_POPULAR_MOVIES = 'UPDATE_POPULAR_MOVIES';
@@ -22,4 +23,5 @@ interface UpdateTopMovieAction {
 export type MovieActionType =
   | UpdateUpcomingMovieAction
   | UpdatePopularMovieAction
-  | UpdateTopMovieAction;
+  | UpdateTopMovieAction
+  | FetchActionTypes;

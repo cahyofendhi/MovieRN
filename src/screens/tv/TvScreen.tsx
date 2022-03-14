@@ -16,6 +16,7 @@ import {
   updatePopularTv,
   updateTopTv,
 } from '../../redux';
+import {MovieData} from '../../model/movie.model';
 
 type TvScreenProp = CompositeNavigationProp<
   StackNavigationProp<RootStackParamList, 'Main'>,
@@ -26,7 +27,9 @@ const TVScreen: React.FC = () => {
   const navigation = useNavigation<TvScreenProp>();
 
   const dispatch = useDispatch();
-  const {latestMovie, popularMovie, topMovie} = useSelector(
+  const {latestMovie, popularMovie, topMovie,
+    isLatestRequest, isPopularRequest, isTopRequest,
+  } = useSelector(
       (state: RootState) => state.tvMovie,
   );
 
@@ -40,13 +43,17 @@ const TVScreen: React.FC = () => {
     refreshMovies();
   }, []);
 
+  function onPress(item: MovieData) {
+    navigation.navigate('DetailTV', {movie: item});
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
         <HeaderHome title="TV" onSearch={() => {}} />
-        <HMovieList title={'On Air TV'} movies={latestMovie} onPress={() => {}} />
-        <HMovieList title={'Top TV'} movies={topMovie} onPress={() => {}} />
-        <HMovieList title={'Popular'} movies={popularMovie} onPress={() => {}}/>
+        <HMovieList isRequest={isLatestRequest} title={'On Air TV'} movies={latestMovie} onPress={onPress} />
+        <HMovieList isRequest={isTopRequest} title={'Top TV'} movies={topMovie} onPress={onPress} />
+        <HMovieList isRequest={isPopularRequest} title={'Popular'} movies={popularMovie} onPress={onPress}/>
       </ScrollView>
     </SafeAreaView>
   );

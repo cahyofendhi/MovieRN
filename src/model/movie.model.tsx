@@ -9,6 +9,7 @@ export type CategoryMovie =
   | 'on_the_air';
 export type GroupMovie = 'movie' | 'tv';
 export interface MovieData {
+  key?: string,
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -33,6 +34,23 @@ export interface MovieData {
   runtime: number;
   status: string;
   tagline: string;
+  name: string;
+  last_episode_to_air: LastEpisodeToAir;
+  category: CategoryMovie;
+  group: GroupMovie;
+}
+
+export interface LastEpisodeToAir {
+  air_date: string;
+  episode_number: number;
+  id: number;
+  name: string;
+  overview: string;
+  production_code: string;
+  season_number: number;
+  still_path: string;
+  vote_average: number;
+  vote_count: number;
 }
 
 export function getPosterPath(path: string): string {

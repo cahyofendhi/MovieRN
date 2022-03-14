@@ -6,16 +6,19 @@ import {getPosterPath, MovieData} from '../../../model/movie.model';
 import {width} from '../../../styles/dimension.style';
 import {AppImage} from '../AppImage';
 import {Label} from '../label';
+import {VMovieListShimmer} from '../shimmer/VMovieCardShimmer';
 
 interface VMovieProps {
   title: string;
   movies: MovieData[];
+  isRequest: boolean;
   onPress: (movie: MovieData) => void;
 }
 
 export const VMovieList: React.FC<VMovieProps> = ({
   title = 'title',
   movies = [],
+  isRequest = true,
   onPress,
 }) => {
   const renderItems: Element[] = [];
@@ -25,7 +28,11 @@ export const VMovieList: React.FC<VMovieProps> = ({
   return (
     <View>
       <Text style={styles.title}>{title}</Text>
-      <View style={styles.contentList}>{renderItems}</View>
+      {
+        isRequest ?
+        <VMovieListShimmer /> :
+        <View style={styles.contentList}>{renderItems}</View>
+      }
     </View>
   );
 };
@@ -44,7 +51,7 @@ const VMovieItem: React.FC<VMovieItemProps> = ({movie, onPress}) => {
       />
       <View style={styles.titleGroup}>
         <Text style={styles.titleItem} numberOfLines={2} ellipsizeMode="tail">
-          {movie.original_title}
+          {movie.title}
         </Text>
         <Label average={movie.vote_average} />
         <Text style={styles.genre} numberOfLines={2} ellipsizeMode="tail">

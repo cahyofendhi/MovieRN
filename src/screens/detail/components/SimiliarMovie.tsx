@@ -2,16 +2,18 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {getPosterPath, MovieData} from '../../model/movie.model';
-import {width} from '../../styles/dimension.style';
-import {AppImage} from '../components/AppImage';
+import {getPosterPath, MovieData} from '../../../model/movie.model';
+import {width} from '../../../styles/dimension.style';
+import {AppImage} from '../../components/AppImage';
+import {SimiliarShimmer} from '../../components/shimmer/SimiliarShimmer';
 
 interface SimiliarMovieProps {
   movies: MovieData[];
+  isRequest: boolean,
   onPress: (movie: MovieData) => void;
 }
 
-export const SimiliarMovie: React.FC<SimiliarMovieProps> = ({movies, onPress}) => {
+export const SimiliarMovie: React.FC<SimiliarMovieProps> = ({movies, onPress, isRequest = false}) => {
   const rows = [...Array( Math.ceil(movies.length / 4) )];
   const productRows = rows.map( (row, idx) => movies.slice(idx * 4, idx * 4 + 4) );
   const content = productRows.map((row, idx) => (
@@ -28,9 +30,13 @@ export const SimiliarMovie: React.FC<SimiliarMovieProps> = ({movies, onPress}) =
   return (
     <View>
       <Text style={styles.title}>Similiar Movie</Text>
-      <View style={styles.contentList}>
-        {content}
-      </View>
+      {
+        isRequest ?
+        <SimiliarShimmer /> :
+        <View style={styles.contentList}>
+          {content}
+        </View>
+      }
     </View>
   );
 };
@@ -47,7 +53,7 @@ const SimiliarMovieItem: React.FC<SimiliarMovieItemProps> = ({movie}) => {
         url={getPosterPath(movie.backdrop_path)}
       />
       <Text numberOfLines={2} ellipsizeMode="tail" style={styles.titleItem}>
-        {movie.title}
+        {movie.title != null ? movie.title : movie.name !=null ? movie.name : '-'}
       </Text>
     </View>
   );

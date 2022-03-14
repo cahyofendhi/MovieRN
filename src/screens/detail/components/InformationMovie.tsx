@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {currencyFormat, dateFormat} from '../../helper/format.helper';
-import {MovieData} from '../../model/movie.model';
+import {currencyFormat, dateFormat} from '../../../helper/format.helper';
+import {MovieData} from '../../../model/movie.model';
 
 interface InformationMovieProps {
   movie: MovieData;
