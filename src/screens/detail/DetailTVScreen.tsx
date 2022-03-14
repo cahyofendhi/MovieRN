@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {formatNumber} from '../../helper/format.helper';
 import {getGenreTitle, getPosterPath, MovieData} from '../../model/movie.model';
 import {RootState, updateCrewTV, updateSimiliarTV, updateTV} from '../../redux';
-import {StatusBarManager, width} from '../../styles/dimension.style';
+import {isTablet, StatusBarManager, width} from '../../styles/dimension.style';
 import {AppImage} from '../components/AppImage';
 import {FlexContainer} from '../components/container/FlexContainer';
 import {IconBack} from '../components/icons';
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   contentMiddle: {
     flex: 1,
     height: 100,
-    marginLeft: 50,
+    marginLeft: isTablet() ? width / 2 : 50,
     flexDirection: 'row',
     backgroundColor: 'white',
     borderTopLeftRadius: 10,

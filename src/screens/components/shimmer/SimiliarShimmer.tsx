@@ -1,16 +1,16 @@
 /* eslint-disable react/jsx-key */
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {width} from '../../../styles/dimension.style';
-import LinearGradient from 'react-native-linear-gradient';
-import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder';
+import {isTablet, width} from '../../../styles/dimension.style';
+import {ShimmerPlaceHolder} from './ViewShimmer';
 
-export const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
+
+const column = isTablet() ? 8 : 4;
 
 export const SimiliarShimmer: React.FC = () => {
   const movies = [1, 2, 3, 4, 5, 6, 7];
-  const rows = [...Array( Math.ceil(movies.length / 4) )];
-  const productRows = rows.map( (row, idx) => movies.slice(idx * 4, idx * 4 + 4) );
+  const rows = [...Array( Math.ceil(movies.length / column) )];
+  const productRows = rows.map( (row, idx) => movies.slice(idx * column, idx * column + column) );
   const content = productRows.map((row, idx) => (
     <View key={idx} style={{flexDirection: 'row'}}>
       {
@@ -48,14 +48,14 @@ const styles = StyleSheet.create({
   },
   contentItem: {
     flexDirection: 'column',
-    width: (width / 4) - 4 - 10,
+    width: (width / column) - 4 - 10,
     margin: 4,
   },
   imageItem: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: (width / 4) - 4 - 10,
-    height: (width / 4) - 4 - 10,
+    width: (width / column) - 4 - 10,
+    height: (width / column) - 4 - 10,
     borderRadius: 10,
   },
   titleItem: {

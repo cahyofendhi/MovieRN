@@ -2,10 +2,10 @@ import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 const {width} = Dimensions.get('window');
-import LinearGradient from 'react-native-linear-gradient';
-import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder';
+import {isTablet} from '../../../styles/dimension.style';
+import {ShimmerPlaceHolder} from './ViewShimmer';
 
-export const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
+const imageWidth = Math.round(width / (isTablet() ? 7 :4));
 
 export const UpcomingShimmer: React.FC = () => {
   const data = [1, 2, 3, 4, 5, 6, 7];
@@ -25,11 +25,10 @@ export const UpcomingShimmer: React.FC = () => {
 };
 
 const UpcomingItemShimmer: React.FC = () => {
-  const imageWidth = Math.round(width / 4);
   return (
     <View style={styles.containerItem}>
       <ShimmerPlaceHolder
-        style={[{width: imageWidth}, styles.item]}
+        style={styles.item}
       />
     </View>
   );
@@ -48,6 +47,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   item: {
+    width: imageWidth,
     height: 75,
     borderRadius: 10,
   },

@@ -3,9 +3,11 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {getPosterPath, MovieData} from '../../../model/movie.model';
-import {width} from '../../../styles/dimension.style';
+import {isTablet, width} from '../../../styles/dimension.style';
 import {AppImage} from '../../components/AppImage';
 import {SimiliarShimmer} from '../../components/shimmer/SimiliarShimmer';
+
+const column = isTablet() ? 8 : 4;
 
 interface SimiliarMovieProps {
   movies: MovieData[];
@@ -14,8 +16,8 @@ interface SimiliarMovieProps {
 }
 
 export const SimiliarMovie: React.FC<SimiliarMovieProps> = ({movies, onPress, isRequest = false}) => {
-  const rows = [...Array( Math.ceil(movies.length / 4) )];
-  const productRows = rows.map( (row, idx) => movies.slice(idx * 4, idx * 4 + 4) );
+  const rows = [...Array( Math.ceil(movies.length / column) )];
+  const productRows = rows.map( (row, idx) => movies.slice(idx * column, idx * column + column) );
   const content = productRows.map((row, idx) => (
     <View key={idx} style={{flexDirection: 'row'}}>
       {
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
   },
   contentItem: {
     flexDirection: 'column',
-    width: (width / 4) - 4 - 10,
+    width: (width / column) - 4 - 10,
     margin: 4,
   },
   imageItem: {

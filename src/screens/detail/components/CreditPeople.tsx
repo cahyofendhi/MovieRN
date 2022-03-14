@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, FlatList, StyleSheet} from 'react-native';
 import {Crew} from '../../../model/crews.model';
 import {getPosterPath} from '../../../model/movie.model';
-import {width} from '../../../styles/dimension.style';
+import {isTablet, width} from '../../../styles/dimension.style';
 import {AppImage} from '../../components/AppImage';
 import {CreditPeopleShimmer} from '../../components/shimmer/CreditShimmer';
 
@@ -17,7 +17,7 @@ export const CreditPeople: React.FC<CreditPeopleProps> = ({crews, isRequest = fa
       <Text style={styles.title}>Credit People</Text>
       {
         isRequest ?
-        CreditPeopleShimmer :
+        <CreditPeopleShimmer /> :
         <FlatList
           contentContainerStyle={styles.contentList}
           data={crews}
@@ -38,7 +38,7 @@ export const CreditPeople: React.FC<CreditPeopleProps> = ({crews, isRequest = fa
   );
 };
 
-const widthItem = width / 5;
+const widthItem = width / (isTablet() ? 9 : 5);
 
 interface PeopleItemProps {
   crew: Crew;

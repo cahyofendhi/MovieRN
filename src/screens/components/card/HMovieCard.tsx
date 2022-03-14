@@ -3,9 +3,11 @@ import {StyleSheet, Text, View} from 'react-native';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import {dateFormat} from '../../../helper/format.helper';
 import {getPosterPath, MovieData} from '../../../model/movie.model';
-import {width} from '../../../styles/dimension.style';
+import {isTablet, width} from '../../../styles/dimension.style';
 import {AppImage} from '../AppImage';
 import {HMovieListShimmer} from '../shimmer/HMovieCardShimmer';
+
+const contentWidth = width / (isTablet() ? 6 : 3);
 
 interface HMovieProps {
   title: string;
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
   },
   contentItem: {
     paddingRight: 10,
-    width: width / 3,
+    width: contentWidth,
   },
   title: {
     fontSize: 16,

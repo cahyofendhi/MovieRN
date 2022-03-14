@@ -52,7 +52,7 @@ const GenreSchema = {
 const realmDB = new Realm({
   path: 'moviern.db',
   schema: [MovieSchema, GenreSchema],
-  schemaVersion: 1,
+  schemaVersion: 2,
   migration: () => {},
 });
 

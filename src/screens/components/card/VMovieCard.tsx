@@ -3,10 +3,12 @@ import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {genreList} from '../../../helper/app.helper';
 import {getPosterPath, MovieData} from '../../../model/movie.model';
-import {width} from '../../../styles/dimension.style';
+import {isTablet, width} from '../../../styles/dimension.style';
 import {AppImage} from '../AppImage';
 import {Label} from '../label';
 import {VMovieListShimmer} from '../shimmer/VMovieCardShimmer';
+
+const imageWidth = width / (isTablet() ? 7: 4);
 
 interface VMovieProps {
   title: string;
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
   },
   imageItem: {
-    width: width / 4,
+    width: imageWidth,
     aspectRatio: 3 / 4,
     borderRadius: 10,
   },
