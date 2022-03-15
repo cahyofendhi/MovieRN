@@ -1,5 +1,4 @@
 /* eslint-disable require-jsdoc */
-// /* eslint-disable require-jsdoc */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const sessionLoginKey = 'is_user_login';
