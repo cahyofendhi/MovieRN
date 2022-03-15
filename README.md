@@ -1,4 +1,4 @@
-# MovieJetPackCompose
+# MovieRN
 
 Sample project built with React Native and TypeScript  implements api from [themoviedb](http://themoviedb.org).
 
