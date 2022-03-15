@@ -1,3 +1,4 @@
+export * from './main.action';
 export * from './common.action';
 export * from './movie.action';
 export * from './tv.action';
