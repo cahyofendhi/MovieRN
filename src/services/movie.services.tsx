@@ -39,9 +39,19 @@ async function getSimiliarMovie(
   return response.data;
 }
 
+async function searchMovie(
+    group: GroupMovie,
+    query: string,
+    page: number): Promise<MovieResponse> {
+  const url = getUrl(`search/${group}`, `page=${page}&query=${query}`);
+  const response = await client.get<MovieResponse>(url);
+  return response.data;
+}
+
 export const movieService = {
   getMovieList,
   getDetailMovie,
   getCrewsMovie,
   getSimiliarMovie,
+  searchMovie,
 };

@@ -6,7 +6,7 @@ import Modal from 'react-native-modal';
 interface ProgressDialogProps {
     show: boolean
     dismisable?: boolean,
-    onDismiss: () => void
+    onDismiss?: () => void
 }
 
 const ProgressDialog: React.FC<ProgressDialogProps> = ({show, dismisable = false, onDismiss}) => {
@@ -17,9 +17,8 @@ const ProgressDialog: React.FC<ProgressDialogProps> = ({show, dismisable = false
     >
       <View style={styles.container} >
         {
-            dismisable ?
+            dismisable && onDismiss != null ?
             <TouchableOpacity onPress={() => {
-              console.log('cloooseeee modal');
               onDismiss();
             }}>
               <ProgressContent />

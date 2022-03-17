@@ -1,82 +1,77 @@
 /* eslint-disable require-jsdoc */
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
+import {Control, Controller, RegisterOptions} from 'react-hook-form';
 import {ColorValue, KeyboardTypeOptions, ReturnKeyTypeOptions, StyleProp, StyleSheet, Text, TextInput, TextStyle, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {passwordValidation} from '../../../helper/validation';
-import {DataText} from './DataText';
 
 
 interface AppTextPasswordProps {
+    name: string
     placeholder?: string
     value?: string
-    onChange: (value: DataText) => void
     style?: StyleProp<TextStyle> | undefined,
     placeholderTextColor?: ColorValue | undefined;
     keyboardType?: KeyboardTypeOptions | undefined;
     autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
     returnKeyType?: ReturnKeyTypeOptions | undefined;
-
+    control: Control<any>;
+    error?: string | null;
+    rules: Omit<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>,
 }
 
 const AppTextPassword: React.FC<AppTextPasswordProps> = ({
+  name,
   placeholder = 'Password',
   value = '',
   placeholderTextColor = 'gray',
   keyboardType = 'default',
   autoCapitalize = 'none',
   returnKeyType = 'default',
-  onChange,
+  control,
+  rules,
+  error,
   style,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [text, setText] = useState('');
-  const [error, setError] = useState('');
   const icon = !showPassword ? 'eye-outline' : 'eye-off-outline';
-
-  useEffect(() => {
-    setText(value);
-  }, []);
-
-  function onChangePassword(value: string) {
-    setText(value);
-    const message = passwordValidation(value);
-    if (message == null) {
-      setError('');
-      onChange({
-        value: value,
-        error: message,
-      });
-    } else {
-      setError(message);
-    }
-  }
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={[styles.input]}
-          returnKeyType={returnKeyType}
-          value={text}
-          onChangeText={onChangePassword}
-          autoCapitalize={autoCapitalize}
-          placeholder={placeholder}
-          placeholderTextColor={placeholderTextColor}
-          textContentType='password'
-          keyboardType={keyboardType}
-          secureTextEntry={showPassword}
-        />
-        <TouchableOpacity style={styles.icons} onPress={() => {
-          setShowPassword(!showPassword);
-        }}>
-          <Ionicons
-            size={20}
-            name={icon}
-            color={'#9e9e9e'}
-          />
-        </TouchableOpacity>
-      </View>
+      <Controller
+        name={name}
+        control={control}
+        defaultValue={value}
+        rules={rules}
+        render={({field}) => (
+          <>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={[styles.input]}
+                returnKeyType={returnKeyType}
+                value={field.value}
+                onChangeText={field.onChange}
+                autoCapitalize={autoCapitalize}
+                placeholder={placeholder}
+                placeholderTextColor={placeholderTextColor}
+                textContentType='password'
+                keyboardType={keyboardType}
+                secureTextEntry={showPassword}
+                onBlur={field.onBlur}
+              />
+              <TouchableOpacity style={styles.icons} onPress={() => {
+                setShowPassword(!showPassword);
+              }}>
+                <Ionicons
+                  size={20}
+                  name={icon}
+                  color={'#9e9e9e'}
+                />
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
+      />
       {
         (error != null && error.length) ?
         <Text style={styles.error}>{error}</Text> : <View/>
