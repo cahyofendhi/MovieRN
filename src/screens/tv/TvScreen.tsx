@@ -2,8 +2,8 @@
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../RootStackPrams';
-import {MainBottomTabParamList} from '../main/MainBottomTabParams';
+import {RootStackParamList} from '../root/RootStackPrams';
+import {MainBottomTabParamList} from '../root/MainBottomTabParams';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import React, {useEffect} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';

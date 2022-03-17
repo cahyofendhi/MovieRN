@@ -2,7 +2,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../home/HomeScreen';
-import {MainBottomTabParamList} from './MainBottomTabParams';
+import {MainBottomTabParamList} from '../root/MainBottomTabParams';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import TVScreen from '../tv/TvScreen';
 
