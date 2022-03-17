@@ -8,7 +8,7 @@ import AppButton from '../components/Button';
 import ProgressDialog from '../components/dialog/ProgressDialog';
 import AppTextInput from '../components/text/AppTextInput';
 import AppTextPassword from '../components/text/AppTextPassword';
-import {RootStackParamList} from '../RootStackPrams';
+import {RootStackParamList} from '../root/RootStackPrams';
 import {useForm} from 'react-hook-form';
 import {sessionLoginKey, setItem} from '../../data/session';
 

@@ -8,7 +8,7 @@ import {LoginScreen} from './screens/auth/LoginScreen';
 import DetailMovieScreen from './screens/detail/DetailMovieScreen';
 import DetailTVScreen from './screens/detail/DetailTVScreen';
 import MainScreen from './screens/main';
-import {RootStackParamList} from './screens/RootStackPrams';
+import {RootStackParamList} from './screens/root/RootStackPrams';
 import SearchScreen from './screens/search/SearchScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();

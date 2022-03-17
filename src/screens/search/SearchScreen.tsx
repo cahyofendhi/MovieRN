@@ -8,7 +8,7 @@ import {RootState, updateSearchMovie} from '../../redux';
 import {VMovieItem} from '../components/card/VMovieCard';
 import {IconBack} from '../components/icons';
 import EmptyView from '../components/panel/EmptyView';
-import {RootStackParamList} from '../RootStackPrams';
+import {RootStackParamList} from '../root/RootStackPrams';
 
 type searchScreenProps = StackNavigationProp<RootStackParamList, 'Search'>;
 
@@ -79,8 +79,8 @@ const SearchScreen: React.FC = () => {
           }}
           onEndReachedThreshold={0.5}
           ListEmptyComponent={() => <EmptyView onPress={() => searchMovie(query, 1)}/>}
-          ListHeaderComponent={() => <LoadingIndicator isLoading={isRefresh} key={'0refr'} /> }
-          ListFooterComponent={() => <LoadingIndicator isLoading={isLoad} key={'1load'}/> }
+          ListHeaderComponent={() => <LoadingIndicator isLoading={isRefresh} /> }
+          ListFooterComponent={() => <LoadingIndicator isLoading={isLoad} /> }
         />
       }
 

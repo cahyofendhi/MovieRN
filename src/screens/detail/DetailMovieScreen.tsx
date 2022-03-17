@@ -13,7 +13,7 @@ import {FlexContainer} from '../components/container/FlexContainer';
 import {IconBack} from '../components/icons';
 import {Label} from '../components/label';
 import NavBarBack from '../components/navbarBack';
-import {RootStackParamList} from '../RootStackPrams';
+import {RootStackParamList} from '../root/RootStackPrams';
 import {CreditPeople} from './components/CreditPeople';
 import {InformationMovie} from './components/InformationMovie';
 import {SimiliarMovie} from './components/SimiliarMovie';
