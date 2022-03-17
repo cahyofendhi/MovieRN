@@ -44,7 +44,7 @@ interface VMovieItemProps {
   onPress: (movie: MovieData) => void;
 }
 
-const VMovieItem: React.FC<VMovieItemProps> = ({movie, onPress}) => {
+export const VMovieItem: React.FC<VMovieItemProps> = ({movie, onPress}) => {
   return (
     <TouchableOpacity onPress={() => onPress(movie)} style={styles.contentItem}>
       <AppImage
