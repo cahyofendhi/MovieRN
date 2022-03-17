@@ -47,10 +47,14 @@ const TVScreen: React.FC = () => {
     navigation.navigate('DetailTV', {movie: item});
   }
 
+  function onSearch() {
+    navigation.push('Search', {group: 'tv'});
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
-        <HeaderHome title="TV" onSearch={() => {}} />
+        <HeaderHome title="TV" onSearch={onSearch} />
         <HMovieList isRequest={isLatestRequest} title={'On Air TV'} movies={latestMovie} onPress={onPress} />
         <HMovieList isRequest={isTopRequest} title={'Top TV'} movies={topMovie} onPress={onPress} />
         <HMovieList isRequest={isPopularRequest} title={'Popular'} movies={popularMovie} onPress={onPress}/>

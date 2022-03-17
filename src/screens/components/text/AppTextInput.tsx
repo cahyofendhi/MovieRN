@@ -1,17 +1,34 @@
 import React from 'react';
-import {ColorValue, KeyboardTypeOptions, ReturnKeyTypeOptions, StyleProp, StyleSheet, Text, TextInput, TextStyle, View} from 'react-native';
+import {
+  ColorValue,
+  KeyboardTypeOptions,
+  ReturnKeyTypeOptions,
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextInput,
+  TextStyle,
+  View,
+} from 'react-native';
+import {
+  Control,
+  Controller,
+  RegisterOptions,
+} from 'react-hook-form';
 
 
 interface AppTextInputProps {
+    name: string
     placeholder: string
-    value: string
-    onChange: (value: string) => void
+    value?: string |undefined
     style?: StyleProp<TextStyle> | undefined,
     placeholderTextColor?: ColorValue | undefined;
     keyboardType?: KeyboardTypeOptions | undefined;
     autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
     returnKeyType?: ReturnKeyTypeOptions | undefined;
-    error: string | null;
+    error?: string | null;
+    control: Control<any>;
+    rules: Omit<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>,
     textContentType?:
         | 'none'
         | 'URL'
@@ -46,6 +63,7 @@ interface AppTextInputProps {
 }
 
 const AppTextInput: React.FC<AppTextInputProps> = ({
+  name,
   placeholder,
   value,
   placeholderTextColor = 'gray',
@@ -53,22 +71,34 @@ const AppTextInput: React.FC<AppTextInputProps> = ({
   autoCapitalize = 'none',
   returnKeyType = 'none',
   textContentType = 'emailAddress',
-  onChange,
   error,
+  control,
+  rules,
   style,
 }) => {
   return (
     <View style={styles.container}>
-      <TextInput
-        style={[styles.inputContainer, style]}
-        returnKeyType={returnKeyType}
-        value={value}
-        onChangeText={onChange}
-        autoCapitalize={autoCapitalize}
-        placeholder={placeholder}
-        placeholderTextColor={placeholderTextColor}
-        textContentType={textContentType}
-        keyboardType={keyboardType}
+      <Controller
+        control={control}
+        defaultValue={value}
+        name={name}
+        rules={rules}
+        render={({field}) => (
+          <>
+            <TextInput
+              style={[styles.inputContainer, style]}
+              returnKeyType={returnKeyType}
+              value={value}
+              onChangeText={field.onChange}
+              autoCapitalize={autoCapitalize}
+              placeholder={placeholder}
+              placeholderTextColor={placeholderTextColor}
+              textContentType={textContentType}
+              keyboardType={keyboardType}
+              onBlur={field.onBlur}
+            />
+          </>
+        )}
       />
       {
         (error != null && error.length) ?

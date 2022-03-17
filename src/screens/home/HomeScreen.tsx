@@ -48,10 +48,14 @@ const HomeScreen: React.FC = () => {
     navigation.navigate('DetailMovie', {movie: item});
   }
 
+  function onSearch() {
+    navigation.push('Search', {group: 'movie'});
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
-        <HeaderHome title="Movie" onSearch={() => {}} />
+        <HeaderHome title="Movie" onSearch={onSearch} />
         <UpcomingFeed isRequest={isUpcomingRequest} onPress={onPress} movies={upcomingMovie} />
         <HMovieList isRequest={isPopularRequest} title={'Popular'} movies={popularMovie} onPress={onPress} />
         <VMovieList isRequest={isTopRequest} title={'Top Movies'} movies={topMovie} onPress={onPress} />

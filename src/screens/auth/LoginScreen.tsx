@@ -3,27 +3,44 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {sessionLoginKey, setItem} from '../../data/session';
-import {emailValidation} from '../../helper/validation';
+import {ERROR_MESSAGES, PASSWORD_MIN_LENGTH, REGEX} from '../../helper/validation';
 import AppButton from '../components/Button';
 import ProgressDialog from '../components/dialog/ProgressDialog';
 import AppTextInput from '../components/text/AppTextInput';
 import AppTextPassword from '../components/text/AppTextPassword';
-import {DataText} from '../components/text/DataText';
 import {RootStackParamList} from '../RootStackPrams';
+import {useForm} from 'react-hook-form';
+import {sessionLoginKey, setItem} from '../../data/session';
+
 
 type authScreenProps = StackNavigationProp<RootStackParamList, 'Login'>
 
+
+type FormData = {
+  email: string
+  password: string
+  termAccepted: boolean
+}
+
+
 export const LoginScreen: React.FC = () => {
   const navigation = useNavigation<authScreenProps>();
-  const [email, setEmail] = useState<DataText>({value: '', error: null});
-  const [password, setPassword] = useState<DataText>({value: '', error: ''});
   const [loading, setLoading] = useState(false);
 
+  const {control, formState, handleSubmit} = useForm<FormData>({mode: 'onChange'});
 
-  function onEmailChanged(value: string) {
-    const message = emailValidation(value);
-    setEmail({value: value, error: message});
+  function onSubmit(data: FormData) {
+    setLoading(true);
+    setTimeout(() => {
+      setItem(sessionLoginKey, true);
+      setLoading(false);
+      setTimeout(() => {
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'Main'}],
+        });
+      }, 1000);
+    }, 3000);
   }
 
   return (
@@ -31,42 +48,38 @@ export const LoginScreen: React.FC = () => {
       <Text style={styles.title}>Login Screen</Text>
 
       <AppTextInput
+        name='email'
+        control={control}
+        error={formState.errors.email?.message}
         returnKeyType="next"
-        value={email.value}
-        error={email.error}
-        onChange={onEmailChanged}
         placeholder='Email'
         textContentType="emailAddress"
         keyboardType="email-address"
+        rules={{
+          required: {value: true, message: ERROR_MESSAGES.REQUIRED},
+          pattern: {message: ERROR_MESSAGES.EMAIL_INVALID, value: REGEX.email},
+        }}
       />
 
       <AppTextPassword
-        value={password.value}
+        name='password'
+        control={control}
+        error={formState.errors.password?.message}
         placeholderTextColor="gray"
-        onChange={(dt) => setPassword({value: dt.value, error: dt.error})}
+        rules={{
+          required: {value: true, message: ERROR_MESSAGES.REQUIRED},
+          minLength: {value: PASSWORD_MIN_LENGTH, message: ERROR_MESSAGES.PASSWORD_INVALID},
+        }}
       />
 
       <AppButton
         style={{marginTop: 25}}
-        enable={email.error == null && password.error == null}
+        enable={formState.isValid}
         title="Login"
-        onPress={() => {
-          setLoading(true);
-          setTimeout(() => {
-            setItem(sessionLoginKey, true);
-            setLoading(false);
-            setTimeout(() => {
-              navigation.reset({
-                index: 0,
-                routes: [{name: 'Main'}],
-              });
-            }, 1000);
-          }, 3000);
-        }
-        }
+        onPress={handleSubmit(onSubmit)}
       />
 
-      <ProgressDialog show={loading} onDismiss={() => setLoading(false)}/>
+      <ProgressDialog show={loading}/>
 
     </View>
 
